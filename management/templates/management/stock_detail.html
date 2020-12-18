@@ -1,0 +1,183 @@
+ {% extends 'management/base.html' %}
+
+{% block title%}Book Detail{%endblock%}
+{% load static %}
+    {% block content %}
+ <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="row ">
+            <center>
+              {% if messages %}
+                          <ul class="messages">
+                          {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %} style="background: white; font-size: 17px;padding: 4px ;color: blue">{{ message }}</li>
+                          {% endfor %}
+                          </ul>
+                      {% endif %}
+             <div class="col-md-12 col-lg-12 col-xl-10">
+              <!-- Support tickets -->
+              <div class="card">
+                <div class="card-header">
+                  <h4>{{queryset.category}}</h4>
+                  
+                </div>
+                <div class="card-body">
+                  <div class="support-ticket media pb-0 mb-1">
+                    <img style="width: 20%;height: 20%" src="{{ queryset.image.url }}" class="user-img mr-2" alt="">
+                    <div class="media-body ml-20 font-20" style="text-transform: uppercase;">
+                      {{queryset.item_name}} - {{queryset.category}}
+
+                    </div>
+                    <div id="moredetails" class="media-body ml-20 font-18">
+                      <b style="background: red;color: white;padding: 1% 2%;border-radius: 5px;text-shadow: 2px 2px 2px 2px;">GH&#8373;{{queryset.price}}</b>
+                      <br>
+                      {{ queryset.quantity}} now left in store.<br><br><b>In Stock Cost</b> : GH&#8373;{{queryset.receive_cost}}
+                    </div>
+                    <style>
+                      @media (max-width: 350px){
+                        #moredetails{
+                          display: none;
+                        }
+                      }
+                    </style>
+
+
+                  </div>
+                  
+                                    
+                </div>
+              </div>
+              <!-- Support tickets -->
+            </div>
+          </center>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <a style="text-decoration: none;" title="click to issue" href="{% url 'management:issue_items' queryset.id %}">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Click to Issue Book</h5>
+                          <h2 class="mb-3 font-18">{{queryset.issue_quantity}}</h2>
+                          <p class="mb-0"><span class="col-red">{{queryset.issue_quantity}}</span> Total number issued recently</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="{% static 'assets/img/banner/1.png' %}" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-4 col-sm-6 col-xs-12">
+              <a style="text-decoration: none;" title="click to add" href="{% url 'management:receive_items' queryset.id %}">
+              <div class="card">
+                <div class="card-statistic-4">
+                  <div class="align-items-center justify-content-between">
+                    <div class="row ">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                        <div class="card-content">
+                          <h5 class="font-15">Click to Add Returns</h5>
+                          <h2 class="mb-3 font-18">{{queryset.receive_quantity}}</h2>
+                          <p class="mb-0"><span class="col-green">{{queryset.receive_quantity}}</span> Total number added recently</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                        <div class="banner-img">
+                          <img src="{% static 'assets/img/banner/2.png' %}" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+            
+          </div>
+
+          <div class="row">
+           
+            <div class="col-md-12 col-lg-12 col-xl-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Details</h4>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>ITEM NAME</th>
+                          <th>QUANTITY IN STORE</th>
+                          <th>DATE CREATED</th>
+                          <th>LAST UPDATED</th>
+                          <th>REORDER LEVEL</th>
+                        </tr>
+                      </thead>
+                    
+                      <tbody>
+                        <tr>
+                          <td></td>
+                          <td  style="text-transform: uppercase;">{{queryset.item_name}}</td>
+                          <td>{{queryset.quantity}}</td>
+                          <td>{{queryset.date_created}}</td>
+                          <td>{{queryset.last_updated}}</td>
+                          <td>{{queryset.reorder_level}}</td>
+                        </tr>
+                      </tbody>
+      
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<a href="{% url 'management:issue_items' queryset.id %}"><div class='btn btn-danger'>ISSUE THIS ITEM</div></a>
+<a href="{% url 'management:receive_items' queryset.id %}"><div class='btn btn-primary'>RECEIVE THIS ITEM</div></a>
+        <br><br>
+        <div class="display_table">
+          <table class='table'>
+                  <tr>
+                    <th>ITEM NAME</th>
+                    <th>QUANTITY IN STORE</th>
+                    <th>DATE CREATED</th>
+                    <th>LAST UPDATED</th>
+                    <th>REORDER LEVEL</th>
+                  </tr>
+                  <tr>
+                    <td>{{queryset.item_name}}</td>
+                    <td>{{queryset.quantity}}</td>
+                    <td>{{queryset.date_created}}</td>
+                    <td>{{queryset.last_updated}}</td>
+                    <td>{{queryset.reorder_level}}</td>
+                  </tr>
+          </table>
+        </div>
+
+-->
+

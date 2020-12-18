@@ -1,0 +1,49 @@
+{% extends 'management/base.html' %}
+
+{% block title%}Stock Management CPanel{%endblock%}
+{% block active_index %} active   {% endblock %}
+
+{% block content %}			
+	<div class="main-content">	
+		<section class="section">
+          <div class="section-body">
+            
+            <div class="row">
+			<center>
+			<div class="col-12 col-md-12 col-sm-12">
+              <form method="post" action="">
+   				{% csrf_token %}  
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Confirmation</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="empty-state" data-height="400">
+                      <div class="empty-state-icon bg-danger">
+                        <i class="fas fa-times"></i>
+                      </div>
+                      <h2>Are you sure you want to delete?</h2>
+                      
+                      		<br>
+                      		<input class="btn btn-danger" type="submit" value="                 Yes                " />
+                      		<a href="/list_items"  class="btn btn-warning mt-4">  cancel   </a>
+                    </div>
+                  </div>
+                </div></form>
+              </div></center>
+          </div>
+      </div>
+  </section>
+</div>
+
+{% endblock %}
+
+<!--
+<form method="post" action="">
+   {% csrf_token %}
+     <h1>Are you sure you want to delete?</h1><br>
+     <input class="btn btn-danger" type="submit" value="Yes" />
+     <a href="/list_items"><div class="btn btn-primary">Cancel</div></a>
+</form>
+
+-->

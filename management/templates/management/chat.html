@@ -1,0 +1,181 @@
+{% extends 'management/base.html' %}
+
+{% block title%}Stock Management - Chat{%endblock%}
+{% load static %}
+{% block content %}
+     
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-body">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="card">
+                  <div class="body">
+                    <div id="plist" class="people-list">
+                      <div class="chat-search">
+                        <input type="text" class="form-control" placeholder="Search..." />
+                      </div>
+                      <div class="m-b-20">
+                        <div id="chat-scroll">
+                          <ul class="chat-list list-unstyled m-b-0">
+                  
+                            {% for i in allusers %}
+                            <li class="clearfix active">
+                              <img src="{% static 'assets/img/default-user.png' %}" alt="avatar">
+                              <div class="about">
+                                <div class="name">{{i.username}}</div>
+                                <div class="status">
+                                  
+                                    <i class="material-icons online">fiber_manual_record</i>
+                                    Staff</div>
+                                  
+                              </div>
+                            </li><div style="padding-bottom: 2px;"></div>
+                           {% endfor %}
+                  
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <div class="card">
+                  <div class="chat">
+                    <div class="chat-header clearfix">
+                      <img src="{% static 'assets/img/default-user.png' %}" alt="avatar">
+                      <div class="chat-about">
+                        <div class="chat-with">{{user.username}}</div>
+                        <div class="chat-num-messages">online</div>
+                      </div>
+                      <div style="float: right">
+                        <a href="">
+                          <div class="btn btn-primary" style="background: blue;color: white; padding: 2%;">Refresh</div> 
+                      </a>                       
+                      </div>
+                    </div>
+                  </div>
+                  <div class="chat-box" id="mychatbox">
+                    <div class="card-body chat-content" style="overflow-y: auto;">
+                      {% for rs in comments %}
+                        <div style="background: white; width: 70%;padding: 1%;font-weight: 700">
+                          <b>{{ rs.user.username}}</b><br> 
+                          {{rs.comment}}<br>
+                          <a style="background: ghostwhite;color: black;padding: 2px;font-size: 10px;">{{rs.create_at}}</a>
+                        </div>
+                          <br>
+                    {% endfor %}
+                    </div>
+                    <div class="card-footer chat-form">
+
+                      <form method="post" action="/chat-sending/" id="chat-form">
+                        {% csrf_token %}
+                        <input type="text" name="comment" class="form-control" placeholder="Type a message">
+                        <button type="submit" class="btn btn-primary">
+                          <i class="far fa-paper-plane"></i>
+                        </button>
+                      </form>
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="settingSidebar">
+          <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+          </a>
+          <div class="settingSidebar-body ps-container ps-theme-default">
+            <div class=" fade show active">
+              <div class="setting-panel-header">Setting Panel
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Select Layout</h6>
+                <div class="selectgroup layout-color w-50">
+                  <label class="selectgroup-item">
+                    <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                    <span class="selectgroup-button">Light</span>
+                  </label>
+                  <label class="selectgroup-item">
+                    <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                    <span class="selectgroup-button">Dark</span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                <div class="selectgroup selectgroup-pills sidebar-color">
+                  <label class="selectgroup-item">
+                    <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                    <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                      data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                  </label>
+                  <label class="selectgroup-item">
+                    <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                    <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                      data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Color Theme</h6>
+                <div class="theme-setting-options">
+                  <ul class="choose-theme list-unstyled mb-0">
+                    <li title="white" class="active">
+                      <div class="white"></div>
+                    </li>
+                    <li title="cyan">
+                      <div class="cyan"></div>
+                    </li>
+                    <li title="black">
+                      <div class="black"></div>
+                    </li>
+                    <li title="purple">
+                      <div class="purple"></div>
+                    </li>
+                    <li title="orange">
+                      <div class="orange"></div>
+                    </li>
+                    <li title="green">
+                      <div class="green"></div>
+                    </li>
+                    <li title="red">
+                      <div class="red"></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <div class="theme-setting-options">
+                  <label class="m-b-0">
+                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                      id="mini_sidebar_setting">
+                    <span class="custom-switch-indicator"></span>
+                    <span class="control-label p-l-10">Mini Sidebar</span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <div class="theme-setting-options">
+                  <label class="m-b-0">
+                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                      id="sticky_header_setting">
+                    <span class="custom-switch-indicator"></span>
+                    <span class="control-label p-l-10">Sticky Header</span>
+                  </label>
+                </div>
+              </div>
+              <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                  <i class="fas fa-undo"></i> Restore Default
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
+

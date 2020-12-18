@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Excellence - {% block title %}   {% endblock %}</title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="{% static 'assets/css/app.min.css' %}">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/components.css' %}">
+  <!-- Custom style CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+  <link rel='shortcut icon' type='image/x-icon' href="{% static 'assets/E-LOGO.png' %}" style="border-radius: 100%;" />
+</head>
+
+<body>
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar sticky">
+        <div class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a></li>
+            <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                <i data-feather="maximize"></i>
+              </a></li>
+            <li>
+              <form class="form-inline mr-auto">
+                <div class="search-element">
+                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200">
+                  <button class="btn" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </form>
+            </li>
+          </ul>
+        </div>
+
+        <ul class="navbar-nav navbar-right">
+          
+          <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+              class="nav-link nav-link-lg message-toggle"><i data-feather="mail"></i>
+              
+            <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+              <div class="dropdown-header">
+                Chat Room
+              </div>
+              
+              <div class="dropdown-footer text-center">
+                <a href="{% url 'management:chat' %}">Click to enter chat room <i class="fas fa-chevron-right"></i></a>
+              </div>
+            </div>
+          </li>
+
+          <li><a href="{% url 'management:chat' %}" class="nav-link nav-link-lg"><i data-feather="bell"></i>
+            </a>
+          </li>
+
+          
+          <li class="dropdown"><a href="#" data-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="{% static 'assets/img/default-user.png' %}"
+                class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+            <div class="dropdown-menu dropdown-menu-right pullDown">
+              <div class="dropdown-title">Hello {{user.username}}</div>
+              <a class="dropdown-item has-icon"> <i class="far
+										fa-user"></i> Profile
+              </a> 
+              <div class="dropdown-divider"></div>
+              <a href="/logout" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar sidebar-style-2">
+        <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href=""> <img width="50px " style="border-radius: 100%;"  height="80px;" alt="image" src="{% static 'assets/E-LOGO.png' %}" class="header-logo" /> <span
+                class="logo-name">Excellence</span>
+            </a>
+          </div>
+          <ul class="sidebar-menu">
+            <li class="menu-header">Main</li>
+            <li class="dropdown {% block active_index %}    {% endblock %}">
+              <a href="{% url 'management:home' %}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+            </li>
+
+
+            <li class="dropdown {% block active_Books %}    {% endblock %}">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                  data-feather="home"></i><span>Books Management</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{% url 'management:list_items' %}">View</a></li>
+                <li><a class="nav-link" href="{% url 'management:add_items' %}">Create</a></li>
+              </ul>
+            </li>
+
+           
+            <li class="dropdown {% block active_customer %}   {% endblock %}">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                  data-feather="users"></i><span>Customers</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{% url 'management:list_customers' %}">View</a></li>
+                <li><a class="nav-link" href="{% url 'management:add_customer' %}">Create Customer</a></li>
+              </ul>
+            </li>
+
+            <li class="menu-header">Categories For Books</li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                  data-feather="briefcase"></i><span>Categories</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{% url 'management:list_categories' %}">View</a></li>
+                <li><a class="nav-link" href="{% url 'management:add_category' %}">Create</a></li>
+              </ul>
+            </li>
+
+             
+             <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                  data-feather="mail"></i><span>Chat Room</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{% url 'management:chat' %}">Chat</a></li>
+              </ul>
+            </li>
+
+
+          </ul>
+        </aside>
+      </div>
+      
+      {% block content %}
+
+
+
+
+
+      {% endblock %}
+
+
+      <footer class="main-footer">
+        <div class="footer-left">
+          <a href="">COPYRIGHT © <script>document.write(new Date().getFullYear());</script> 
+            EXCELLENCE BOOKS | STOCK MANAGEMENT
+          </a>
+          
+          <!--
+          <a href="https://codingrev.netlify.com/" title="visit developers site">
+           | DEVELOPED BY: CODINGREV - EMMJOY TECHIES
+         </a>
+       -->
+        
+
+        </div>
+        <div class="footer-right">
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!-- General JS Scripts -->
+  <script src="{% static 'assets/js/app.min.js' %}"></script>
+  <!-- JS Libraies -->
+  <script src="{% static 'assets/bundles/apexcharts/apexcharts.min.js' %}"></script>
+  <!-- Page Specific JS File -->
+  <script src="{% static 'assets/js/page/index.js' %}"></script>
+  <!-- Template JS File -->
+  <script src="{% static 'assets/js/scripts.js' %}"></script>
+  <!-- Custom JS File -->
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+</body>
+
+
+<!-- index.html  21 Nov 2019 03:47:04 GMT -->
+</html>

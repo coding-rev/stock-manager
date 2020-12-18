@@ -1,0 +1,124 @@
+ {% extends 'management/base.html' %}
+
+{% block title%}Customer Detail{%endblock%}
+{% block active_customer %} active  {% endblock %}
+{% load static %}
+    {% block content %}
+ <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="row ">
+            <center>
+              {% if messages %}
+                          <ul class="messages">
+                          {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="background: white; font-size: 17px;padding: 4px ">{{ message }}</li>
+                          {% endfor %}
+                          </ul>
+                      {% endif %}
+             <div class="col-md-12 col-lg-12 col-xl-10">
+              <!-- Support tickets -->
+              <div class="card">
+                <div class="card-header">
+                  <h4>{{queryset.name}}</h4>
+                  
+                </div>
+                <div class="card-body">
+                  <div class="support-ticket media pb-0 mb-1">
+                    <img style="width: 20%;height: 20%" src="{{ queryset.image.url }}" class="user-img mr-2" alt="">
+                    <div class="media-body ml-20 font-20" style="text-transform: uppercase;">
+                      {{queryset.name}}<br><a style="color: blue;">{{queryset.group}}</a><br>
+
+                      {% for stock in stocks %}
+                        {{stock.item_name}}
+                      {% endfor %}
+
+                    </div>
+                    <div id="moredetails" class="media-body ml-20 font-18">
+                      
+                    </div>
+                    <style>
+                      @media (max-width: 350px){
+                        #moredetails{
+                          display: none;
+                        }
+                      }
+                    </style>
+
+
+                  </div>
+                  
+                                    
+                </div>
+              </div>
+              <!-- Support tickets -->
+            </div>
+          </center>
+                                   
+          </div>
+
+          <div class="row">
+           
+            <div class="col-md-12 col-lg-12 col-xl-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Details</h4>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>NAME</th>
+                          <th>BOOK PURCHASED</th>
+                          <th>YOUR DEBT</th>
+                          <th>BOOK PRICE</th>
+                          <th>QUANTITY PURCHASED</th>
+                          <th>DISCOUNT</th>
+                          <th>TOTAL COST PRICE</th>
+                          <th>AMOUNT PAID</th>
+                          <th>TIME</th>
+                        </tr>
+                      </thead>
+                    
+                      <tbody>
+                        {% for i in customer_history %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td  style="text-transform: uppercase;">
+                              <a href="{% url 'management:update_customer_history' i.id %}">
+                                {{i.name}}
+                              </a>
+                            </td>
+                            <td  style="text-transform: uppercase;">{{i.book_received}}</td>
+                            
+                            {% if i.debt > 0 %}
+                                <td style="background: red;color: white;font-weight: 700;">&#8373;{{i.debt}}</td>
+                            {% else %}
+                                <td style="background: green;color: white;font-weight: 700">---</td>
+                            {% endif %}
+
+                            <td>&#8373;{{i.book_price}}</td>
+                            <td>{{i.quantity_collected}}</td>
+                            <td>{{i.discount}}</td>
+                            <td>&#8373;{{i.total_cost_price}}</td>
+                            
+                            <td>&#8373;{{i.amount_paid}}</td>
+                            <td>{{i.last_updated}}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+ 
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      {% endblock %}
+
+
+

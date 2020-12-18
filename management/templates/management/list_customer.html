@@ -1,0 +1,269 @@
+{% extends 'management/base.html' %}
+{% block title %} List View {% endblock %}
+{% block active_customer %} active  {% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+ <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="card mb-0">
+                  <div class="card-body">
+                     {% if messages %}
+                          <ul class="messages">
+                          {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                          {% endfor %}
+                          </ul>
+                      {% endif %}
+                    <ul class="nav nav-pills">
+                      
+                      <li class="nav-item">
+                        <a style="background-color: blue;color: white;font-weight: 700;border-radius: 10px;" class="nav-link" href="{% url 'management:list_customers' %}">Refresh Page</a>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>ALL CUSTOMERS</h4>
+                  </div>
+                  <div class="card-body">
+                    
+                    <div class="float-left">
+                      <style>
+                        label{
+                          display: none;
+                        }
+                      </style>
+                      
+                      <form method="POST" action="">
+                        {% csrf_token %}
+                        <div class="input-group">
+                          {{form|crispy}}
+                          <button style="margin-bottom: 26px" type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                          
+                        </div>
+                      </form>
+
+        
+                    </div>
+
+                    <div class="clearfix mb-3"></div>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <tr>
+                          <th class="pt-2">
+                            <div class="custom-checkbox custom-checkbox-table custom-control">
+                              <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad"
+                                class="custom-control-input" id="checkbox-all">
+                              <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                            </div>
+                          </th>
+                          <th>Picture</th>
+                          <th>Name</th>
+                          <th>Type</th>
+                          <th>Date Registered</th>
+                          <th>Phone</th>
+                          <th>Email</th>
+                          <th>Details</th>
+                        </tr>
+                        <!--Item-->
+                        {% for instance in queryset %}
+                        <tr>
+                          <td>
+                            <div class="custom-checkbox custom-control">
+                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input"
+                                id="checkbox-2">
+                              <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
+                            </div>
+                          </td>
+                          <td>
+                            <a href="{% url 'management:stock_detail' instance.id %}">
+                              <img alt="image" src="{{ instance.image.url }}" class="rounded-circle" height="43" width="40"
+                                data-toggle="title" title="">
+                              <span class="d-inline-block ml-1"></span>
+                            </a>
+                          </td>
+                          <td>{{ instance.name }}
+                            <div class="table-links">
+                              <a style="color: green;" href="{% url 'management:customer_detail' instance.id %}">View</a>
+
+                            </div>
+                            
+                          </td>
+                          
+                          <td>
+                            <a href="#">{{ instance.group }}</a>
+                          </td>
+                          <td>{{ instance.date_joined }}</td>
+                          <td>{{ instance.phone }}</td>
+
+                          {% if instance.email %}
+                            <td>{{ instance.email }}</td>
+
+                          {% else %}
+                            <td> --- </td>
+                          {% endif %}
+                          
+
+                          <td>
+                            <div class="badge badge-warning"><a href="{% url 'management:customer_detail' instance.id %}">View</a></div>
+                          </td>
+                        </tr>
+                        {% empty %}
+                          <h2>No customer with such name!</h2>
+                          <style type="text/css">
+                            .table{
+                              display: none;
+                            }
+                            .pagination{
+                              display: none;
+                            }
+                          </style>
+
+                        {% endfor %}
+
+
+                        <!--Item ends here-->
+                      </table>
+                    </div>
+                    <div class="float-right">
+                      <!-- Customer Pagination 
+                      <nav>
+                        <ul class="pagination">
+                          <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="settingSidebar">
+          <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+          </a>
+          <div class="settingSidebar-body ps-container ps-theme-default">
+            <div class=" fade show active">
+              <div class="setting-panel-header">Setting Panel
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Select Layout</h6>
+                <div class="selectgroup layout-color w-50">
+                  <label class="selectgroup-item">
+                    <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                    <span class="selectgroup-button">Light</span>
+                  </label>
+                  <label class="selectgroup-item">
+                    <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                    <span class="selectgroup-button">Dark</span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                <div class="selectgroup selectgroup-pills sidebar-color">
+                  <label class="selectgroup-item">
+                    <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                    <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                      data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                  </label>
+                  <label class="selectgroup-item">
+                    <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                    <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                      data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Color Theme</h6>
+                <div class="theme-setting-options">
+                  <ul class="choose-theme list-unstyled mb-0">
+                    <li title="white" class="active">
+                      <div class="white"></div>
+                    </li>
+                    <li title="cyan">
+                      <div class="cyan"></div>
+                    </li>
+                    <li title="black">
+                      <div class="black"></div>
+                    </li>
+                    <li title="purple">
+                      <div class="purple"></div>
+                    </li>
+                    <li title="orange">
+                      <div class="orange"></div>
+                    </li>
+                    <li title="green">
+                      <div class="green"></div>
+                    </li>
+                    <li title="red">
+                      <div class="red"></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <div class="theme-setting-options">
+                  <label class="m-b-0">
+                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                      id="mini_sidebar_setting">
+                    <span class="custom-switch-indicator"></span>
+                    <span class="control-label p-l-10">Mini Sidebar</span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <div class="theme-setting-options">
+                  <label class="m-b-0">
+                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                      id="sticky_header_setting">
+                    <span class="custom-switch-indicator"></span>
+                    <span class="control-label p-l-10">Sticky Header</span>
+                  </label>
+                </div>
+              </div>
+              <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                  <i class="fas fa-undo"></i> Restore Default
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
+
+

@@ -1,0 +1,122 @@
+{% extends 'management/base.html' %}
+{% load crispy_forms_tags %}
+{% block title%}
+	 Summary
+{% endblock %}
+
+{% load static %}
+{% block content %}
+
+<div class="main-content">
+        <section class="section">
+        	{% if fromdate %}
+        	  {% if todate %}
+        		<center style="font-size: 19px;color: blue">Total Summary from {{fromdate}} to {{todate}}</center>
+        	  {% endif %}
+        	{% endif %} 
+        	 <form method="POST" action="">
+                {% csrf_token %}
+                <div class="input-group">
+                   <label for="fromdate">From</label>
+                   <input style="margin: 15px;" type="date" value="{{fromdate}}" name="fromdate">
+        	
+<!--date-->
+                   <label for="todate">To</label>
+                   <input style="margin: 15px;" type="date" value="{{todate}}" name="todate">
+                   
+                   <button style="margin-bottom: 26px" type="submit" class="btn btn-primary">
+                    Filter
+                   </button>
+                </div>
+            </form>
+
+          <div class="card-body p-0">
+          	<!--Laptop display-->
+                    <div id="laptop" class="table-responsive">
+                      <table class="table table-striped table-md">
+                        <tr>
+                          <th>#</th>
+                          <th>TOTAL INCOME</th>
+                          <th>TOTAL AMOUNT IN DEBT</th>
+                          <th>TOTAL NUMBER OF BOOKS SOLD</th>
+                        </tr>
+                        
+                        
+                        <tr>
+
+                          <td></td>	
+                          <td>GH&#8373;{{income_list}}</td>
+                          <td>GH&#8373;{{debt_list}}</td>
+                          <td>{{books_sold_list}}</td>
+                          
+                      </tr>
+
+                       </table>
+                    </div>
+            <!--Mobile view-->
+            		<div id="mobile" class="table-responsive">
+                      <table class="table table-striped table-md">
+                        <!--Table one-->
+                        <tr>
+                          <th>TOTAL INCOME</th>
+                        </tr>
+                                               
+                        <tr>
+
+                          <td>GH&#8373; {{income_list}}</td>
+                      </tr>
+                      <!--Table Two-->
+                      <tr>
+                          <th>TOTAL AMOUNT IN DEBT</th>
+                        </tr>
+                                                
+                        <tr>
+                         <td>GH&#8373; {{debt_list}}</td>
+                        </tr>
+
+                        <!--Table Three-->
+                        <tr>
+                          <th>TOTAL NUMBER OF BOOKS SOLD</th>  
+                        </tr>
+                                                
+                        <tr>
+                          <td>{{books_sold_list}}</td>
+                        </tr>
+
+                       </table>
+                    </div>
+                 <!--Mobile Ends here, Css STarts-->
+                    
+                    <style type="text/css">
+                    	td{
+                    		font-size: 17px;
+                    		font-weight: 700;
+                    		color: red;
+                    	}
+                    	th{
+                    		color: blue;
+                    	}
+                    	#mobile{
+                    		display: none;
+                    	}
+                    	@media(max-width: 584px){
+                    		#laptop{
+                    			display: none;
+                    		}
+                    		#mobile{
+                    			display: block;
+                    		}
+                    	}
+                    </style>
+
+
+                  </div>
+         </section>
+</div>
+
+
+
+
+
+
+{% endblock %}
