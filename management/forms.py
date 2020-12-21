@@ -115,7 +115,7 @@ class IssueForm(forms.ModelForm):
 class ReceiveForm(forms.ModelForm):
 	class Meta:
 		model = Stock
-		fields = ['receive_quantity', 'receive_from']
+		fields = ['receive_quantity', 'issue_to']
 
 
 #==========================================================

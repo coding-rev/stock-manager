@@ -319,7 +319,7 @@ def receive_items(request, pk):
 		instance.issue_cost = 0
 		instance.quantity += instance.receive_quantity
 		instance.receive_by = str(request.user)
-		instance.receive_from = instance.receive_from
+		instance.receive_from = instance.issue_to
 		instance.item_name = instance.item_name
 		instance.price = instance.price
 		instance.receive_cost = instance.price * instance.receive_quantity
