@@ -13,10 +13,8 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('EXCELLENCE_SECRET_KEY') 
 
-#  '28&3#_)4g#(!diz(#5rta29=4acicy-u4(gj7^app%#+vx25a8'
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['excellencestock.herokuapp.com']
 
