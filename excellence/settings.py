@@ -16,7 +16,7 @@ SECRET_KEY = os.environ.get('EXCELLENCE_SECRET_KEY')
 #  '28&3#_)4g#(!diz(#5rta29=4acicy-u4(gj7^app%#+vx25a8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['excellencestock.herokuapp.com']
 
