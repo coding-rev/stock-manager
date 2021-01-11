@@ -26,8 +26,11 @@
                 <div class="card-body">
                   <div class="support-ticket media pb-0 mb-1">
                     <img style="width: 20%;height: 20%" src="{{ queryset.image.url }}" class="user-img mr-2" alt="">
-                    <div class="media-body ml-20 font-20" style="text-transform: uppercase;">
-                      {{queryset.name}}<br><a style="color: blue;">{{queryset.group}}</a><br>
+                    <div class="media-body ml-20 font-18" style="text-transform: uppercase;">
+                      <a style="color: blue;">Name:</a><br>
+                      <a> {{queryset.name}}</a><br>
+                      <a style="color: blue;">Category: </a><br>
+                      <a>{{queryset.group}}</a><br>
 
                       {% for stock in stocks %}
                         {{stock.item_name}}
@@ -56,15 +59,49 @@
           </center>
                                    
           </div>
-
+         
           <div class="row">
            
             <div class="col-md-12 col-lg-12 col-xl-12">
               <div class="card">
-                <div class="card-header">
-                  <h4>Details</h4>
+                <div style="justify-content: space-between;" class="card-header">
+                  
+                  <h4>
+                    Details
+                  </h4>
+                  
+
+                  <div>
+                    <form>
+                      <input type="button" style="color:white;background: blue;border:0;border-radius: 5px; box-shadow: 2px black;" value="Print History" onclick="window.print()">
+                    </form>  
+                  </div>
+                  
+               <style>
+                 @media print {
+                  #customerHistory {
+                      background-color: white;
+                      height: 100%;
+                      width: 100%;
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      margin: 0;
+                      padding: 15px;
+                      font-size: 14px;
+                      line-height: 18px;
+                    }
+                    #printNav{
+                      display: none;
+                    }
+                  
+                  }
+               </style>
+
                 </div>
-                <div class="card-body">
+
+               
+                <div id="customerHistory" class="card-body">
                   <div class="table-responsive">
                     <table class="table table-hover mb-0">
                       <thead>

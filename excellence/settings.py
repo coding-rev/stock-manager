@@ -22,6 +22,7 @@ ALLOWED_HOSTS = ['excellencestock.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'register',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,7 +30,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'register',
     'management',
     'storages',
 ]
@@ -64,6 +64,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'excellence.wsgi.application'
 
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # during development only
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "cridadgh@gmail.com"
+EMAIL_HOST_PASSWORD = os.environ.get("CRIDAD_EMAIL_PASSWORD")
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -128,7 +136,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '//%s.s3.amazonaws.com/media/stock-management-bucket/'
 
 
-#
+
 django_heroku.settings(locals())
 
 db_from_env=dj_database_url.config(conn_max_age=600)

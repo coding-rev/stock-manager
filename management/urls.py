@@ -26,5 +26,6 @@ urlpatterns = [
 	path('receive_items/<str:pk>/', views.receive_items, name="receive_items"),
 
 	path('stock_summary/', views.manager_summary, name='manager_summary'),
+	path('customer-receipt/', views.receipt, name='receipt'),
  
 ]

@@ -50,7 +50,9 @@
                         {% csrf_token %}
                         <div class="input-group">
                           {{form|crispy}}
-                          <button style="margin-bottom: 26px" type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                          <button style="margin-bottom: 25px" type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                          </button>
                           
                         </div>
                       </form>
@@ -88,7 +90,7 @@
                             </div>
                           </td>
                           <td>
-                            <a href="{% url 'management:stock_detail' instance.id %}">
+                            <a href="{% url 'management:customer_detail' instance.id %}">
                               <img alt="image" src="{{ instance.image.url }}" class="rounded-circle" height="43" width="40"
                                 data-toggle="title" title="">
                               <span class="d-inline-block ml-1"></span>

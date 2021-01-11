@@ -297,7 +297,8 @@ def issue_items(request, pk):
 					issue_history.save()
 
 
-			return redirect('/stock_detail/'+str(instance.id))
+			return redirect('/customer-receipt/')
+			#return redirect('/customer-receipt/'+str(instance.id))
 		# return HttpResponseRedirect(instance.get_absolute_url())
 
 	context = {
@@ -307,6 +308,52 @@ def issue_items(request, pk):
 		"username": 'Issue By: ' + str(request.user),
 	}
 	return render(request, "management/issue_item.html", context)
+
+#Receipt
+@login_required
+def receipt(request):
+	header = 'LIST OF ITEMS'
+	queryset = StockHistory.objects.all()
+	
+	form = StockHistorySearchForm(request.POST or None)
+	if form['export_to_CSV'].value() == True:
+		response = HttpResponse(content_type='text/csv')
+		response['Content-Disposition'] = 'attachment; filename="Excellence Stock History.csv"'
+		writer = csv.writer(response)
+
+		writer.writerow([
+			'CATEGORY', 'ITEM NAME',
+			'QUANTITY IN STORE', 'ISSUE QUANTITY', 
+			'RECEIVE QUANTITY', 'LAST UPDATED',
+			'ISSUE BY','ISSUE TO', 'ISSUE COST (Ghc)',
+			'AMOUNT PAID','RECEIVE BY', 'RECEIVE FROM', 'RECEIVE COST (Ghc)',
+			])
+		instance = queryset
+		for stockhistory in instance:
+			writer.writerow([
+				stockhistory.category, stockhistory.item_name, 
+				stockhistory.quantity,stockhistory.issue_quantity,
+				stockhistory.receive_quantity, stockhistory.last_updated,
+				stockhistory.issue_by, stockhistory.issue_to,
+				stockhistory.issue_cost, stockhistory.amount_paid, 
+				stockhistory.receive_by,
+				stockhistory.receive_from, stockhistory.receive_cost,
+				])
+		return response
+	else:
+		if request.method == 'POST':
+			queryset = StockHistory.objects.filter(
+				issue_by__icontains=form['issue_by'].value()
+				)
+
+	context = {
+		"form":form,
+		"header": header,
+		"queryset": queryset,
+	}
+	return render(request, "management/receipt.html",context)
+
+
 
 
 @login_required
@@ -458,7 +505,7 @@ def update_customer_history(request, pk):
 		else:	
 			form.save()
 			messages.success(request, 'Payment Successfull. '+ str(queryset.name) )
-			return redirect('/list_customers')
+			return redirect('/list_customers/')
 
 	context = {
 		'form':form

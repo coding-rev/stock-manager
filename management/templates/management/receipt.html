@@ -1,0 +1,162 @@
+{% extends 'management/base.html' %}
+
+{% block title%} - Receipt {%endblock%}
+
+{% load crispy_forms_tags %}
+{% block active_Books %}  active  {% endblock %}
+{% block content%}
+<!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12 col-md-12 col-lg-12">
+                <div class="card">
+                 
+                  <div style="justify-content: space-between;" class="card-header">
+                                   
+
+                  
+                  
+               <style>
+                 @media print {
+                  #customerHistory {
+                      background-color: white;
+                      height: 100%;
+                      width: 100%;
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      margin: 0;
+                      padding: 15px;
+                      font-size: 14px;
+                      line-height: 18px;
+                    }
+                    #printNav{
+                      display: none;
+                    }
+                    #emmjoyTag{
+                      display: none;
+                    }
+                    #printBtn{
+                      display: none;
+                      margin-top: -50px;
+                    }
+                  
+                  }
+               </style>
+
+             </div>
+
+                  <div class="card-body p-0">
+                    <div class="table-responsive">
+                      <div>
+                        <h4 style="text-align: center;">EXCELLENCE PUBLICATION AND STATIONERY LIMITED<br>RECEIPT</h1><br>
+                        {% for instance in queryset %}
+                          {% if forloop.first %}
+                            <div style="padding: 0px 5%">
+                              <div>
+                                <b>Name:</b> 
+                                <a>{{instance.issue_to}}</a>
+                              </div><hr>
+                              <div>
+                                <b>Customer Type:</b> 
+                                <a>{{instance.issue_to.group}}</a>
+                              </div><hr>
+                              <div>
+                                <b>Book Purchased:</b> {{instance.item_name}} ({{instance.category}})<br>
+                              </div><hr>
+                              <div>
+                                <b>Quantity:</b> {{instance.issue_quantity}}<br>
+                              </div><hr>
+                              <div>
+                                <b>Total Cost:</b> GH&#8373;{{instance.issue_cost}}<br>
+                              </div><hr>
+                              <div>
+                                <b>Amount Paid:</b> GH&#8373;{{instance.amount_paid}}<br>
+                              </div><hr>
+                              
+                                <div>
+                                  <b>Issued By:</b> <br>..................................... <br>{{instance.issue_by}}
+                                </div>
+                                
+                                <div id="printBtn" style="padding-top: 2%;">
+                                  <form>
+                                    <input type="button" style="width: 100%;padding: 1%;color:white;background: blue;border:0;border-radius: 5px; box-shadow: 2px black;font-family: cambria;" value="Print Receipt" onclick="window.print()">
+                                  </form>  
+                                </div>
+                              
+                            </div>
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+
+
+                      <table style="display: none;" class="table table-striped table-md">
+                        <tr>
+                          <th>#</th>
+                          <th>Category</th>
+                          <th>Item name</th>
+                          <th>Quantity in store</th>
+                          <th>Issue Quantity</th>
+                          <th>Receive Quantity</th>
+                          <th>Last updated</th>
+                          <th>Issue by</th>
+                          <th>Issue to</th>
+                          <th>Issue Cost</th>
+                          <th>Amount Paid</th>
+                          <th>Receive by</th>
+                          <th>Receive from</th>
+                          <th>Receive Cost</th>
+                        </tr>
+                        
+                        {% for instance in queryset %}
+                        <tr>
+
+                          <td>{{forloop.counter}}</td>
+                          <td>{{instance.category}}</td>
+                          <td>{{instance.item_name}}</td>
+                          <td>{{instance.quantity}}</td>
+                          <td>{{instance.issue_quantity}}</td>
+                          <td>{{instance.receive_quantity}}</td>
+                          <td>{{instance.last_updated}}</td>
+                          <td>{{instance.issue_by}}</td>
+                          <td>{{instance.issue_to}}</td>
+                          <td>GH&#8373;{{instance.issue_cost}}</td>
+                          <td>&#8373;{{instance.amount_paid}}</td>
+                          <td>{{instance.receive_by}}</td>
+                          <td>{{instance.receive_from}}</td>
+                          <td>&#8373;{{instance.receive_cost}}</td>
+                      </tr>
+
+                  {% empty %}
+                      <h2>Receipt not available</h2> 
+                      <style>
+                        table{
+                          display: none;
+                        }
+                      </style>   
+                  {% endfor %}
+                       <!--
+                        <td>
+                            <div class="badge badge-success">Active</div>
+                          </td>
+                          <td><a href="#" class="btn btn-primary">Detail</a></td>-->
+
+                       </table>
+                    </div>
+                  </div>
+                  <div class="card-footer text-right">
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+              </div>
+            </div>
+          </div>
+        </section>
+{% endblock %}
+

@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Excellence - {% block title %}   {% endblock %}</title>
+  <title>Excellence Publication and Stationery Limited - {% block title %}   {% endblock %}</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{% static 'assets/css/app.min.css' %}">
   <!-- Template CSS -->
@@ -70,15 +70,26 @@
               <a class="dropdown-item has-icon"> <i class="far
 										fa-user"></i> Profile
               </a> 
+              {% if request.user.is_superuser %}
+                <div class="dropdown-divider"></div>
+                <a href="/stock_summary" class="dropdown-item has-icon text-danger"> <i class="far
+                    fa-book"></i>
+                Summary
+                </a>
+              {% else %}
+
+              {% endif %}
+
               <div class="dropdown-divider"></div>
               <a href="/logout" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
                 Logout
               </a>
+
             </div>
           </li>
         </ul>
       </nav>
-      <div class="main-sidebar sidebar-style-2">
+      <div id="printNav" class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href=""> <img width="50px " style="border-radius: 100%;"  height="80px;" alt="image" src="{% static 'assets/E-LOGO.png' %}" class="header-logo" /> <span
@@ -146,17 +157,14 @@
 
       <footer class="main-footer">
         <div class="footer-left">
-          <a href="">COPYRIGHT © <script>document.write(new Date().getFullYear());</script> 
-            EXCELLENCE BOOKS | STOCK MANAGEMENT
+          <a>COPYRIGHT © <script>document.write(new Date().getFullYear());</script> 
+            EXCELLENCE PUBLICATION AND STATIONERY LIMITED - STOCK MANAGEMENT
           </a>
-          
-          <!--
-          <a href="https://codingrev.netlify.com/" title="visit developers site">
-           | DEVELOPED BY: CODINGREV - EMMJOY TECHIES
+          <br>
+          <a id="emmjoyTag" href="https://codingrev.netlify.com/" target="__blank" title="visit developers site">
+           DEVELOPER: CODINGREV - EMMJOY TECHIES
          </a>
-       -->
-        
-
+     
         </div>
         <div class="footer-right">
         </div>
