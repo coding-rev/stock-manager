@@ -8,18 +8,14 @@ from django.utils import timezone
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-
-from .models import Stock, StockHistory, Comment, CommentForm, Customer, CustomerHistory, Category
-from .forms import CustomerHistoryUpdateForm, StockHistorySearchForm, CustomerSearchForm, CustomerCreateForm,StockCreateForm, StockUpdateForm, StockSearchForm, IssueForm, ReceiveForm, ReorderLevelForm, CatetoryCreateForm
+from .models import *
+from .forms import *
 from django.db.models import Q
-
 from django.http import HttpResponse
 import csv
 

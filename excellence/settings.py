@@ -16,7 +16,7 @@ SECRET_KEY = os.environ.get('EXCELLENCE_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['excellencestock.herokuapp.com']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -64,14 +64,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'excellence.wsgi.application'
 
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # during development only
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # during development only
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "cridadgh@gmail.com"
-EMAIL_HOST_PASSWORD = os.environ.get("CRIDAD_EMAIL_PASSWORD")
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -132,25 +126,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 #
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-#MEDIA_URL = '/media/'
-MEDIA_URL = '//%s.s3.amazonaws.com/media/stock-management-bucket/'
+MEDIA_URL = '/media/'
 
-
-
-django_heroku.settings(locals())
-
-db_from_env=dj_database_url.config(conn_max_age=600)
-DATABASES["default"].update(db_from_env)
-
-
-AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_STORAGE_BUCKET_NAME= 'stock-management-bucket'
-AWS_S3_REGION_NAME=os.environ.get('AWS_S3_REGION_NAME')
-AWS_S3_SIGNATURE_VERSION='s3v4'
-AWS_S3_FILE_OVERWRITE=False
-AWS_DEFAULT_ACL=None
-DEFAULT_FILE_STORAGE='storages.backends.s3boto3.S3Boto3Storage'
 
 
 
