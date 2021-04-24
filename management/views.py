@@ -322,7 +322,7 @@ def receipt(request):
 			'QUANTITY IN STORE', 'ISSUE QUANTITY', 
 			'RECEIVE QUANTITY', 'LAST UPDATED',
 			'ISSUE BY','ISSUE TO', 'ISSUE COST (Ghc)',
-			'AMOUNT PAID','RECEIVE BY', 'RECEIVE FROM', 'RECEIVE COST (Ghc)',
+			'AMOUNT PAID','RECEIVE BY', 'RECEIVE FROM', 'RECEIVE COST (GHc)',
 			])
 		instance = queryset
 		for stockhistory in instance:
